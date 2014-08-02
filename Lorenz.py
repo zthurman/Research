@@ -52,9 +52,9 @@ fig = figure()
 ax = Axes3D(fig)
 ax.plot(soln[:,0], soln[:,1], soln[:,2])
 title("Lorenz Equations, Strange Attractor")
-ax.set_xlabel("x")
-ax.set_ylabel("y")
-ax.set_zlabel("z")
+ax.set_xlabel("xdot")
+ax.set_ylabel("ydot")
+ax.set_zlabel("zdot")
 show()
 
 def do_tplot():
