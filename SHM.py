@@ -70,7 +70,7 @@ plt.show()
 
 # Fancy Phase Space Vector Field for SHO
 
-plt.streamplot(XX, YY, YY, -k*XX)   # allows fancy flowie arrows to indicate a cooler lookings stream of ther field
+plt.streamplot(XX, YY, YY, -k*XX)   # allows fancy flowie arrows to indicate a cooler looking stream of ther field
 plt.quiver(XX, YY, YY, -k*XX, pivot = 'middle')
 pylab.title('Fancy Vector field for SHM')
 pylab.xlabel('Xdot')
