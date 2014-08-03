@@ -52,3 +52,24 @@ ax3.axis('scaled')    # autoscale the output
 
 plt.tight_layout()
 plt.show()
+
+# Plotting the vector field of a harmonic oscillator in phase space
+
+# pylab.figure()
+x = np.linspace(-1.0, 1.0, 10)   # create a linear space for the vector field
+XX, YY = np.meshgrid(x, x)      # generate a mesh grid for this vector field
+pylab.show()
+
+k = omega_squared
+pylab.figure()
+pylab.plt.quiver(XX, YY, YY, -k*XX, pivot='middle')      # quiver allows the plotting of vector fields in two dimensions
+pylab.plt.axis('equal')      # can use 'scaled' as input 
+pylab.show()
+
+# Fancy Phase Space Vector Field for SHO
+
+plt.streamplot(XX, YY, YY, -k*XX)   # allows fancy flowie arrows to indicate a cooler lookings stream of ther field
+plt.quiver(XX, YY, YY, -k*XX, pivot = 'middle')
+plt.axis('equal')
+plt.autoscale(True,'both',True)
+plt.show()
