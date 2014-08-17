@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# A General Ordinary Differential Equation (ODE) Solver, applied to SHM
+# A General Ordinary Differential Equation (ODE) Solver applied to SHM
 
 from __future__ import division
 from scipy import *
@@ -31,22 +31,6 @@ def rk4(odes, state, parameters, dt=0.01):
     k4 = dt * odes(state + k3, parameters)
     return state + (k1 + 2 * k2 + 2 * k3 + k4) / 6
 
-# Alternate RK4 function
-
-"""def RK4(t0 = 0, x0 = np.array([1]), t1 = 5 , dt = 0.01, ng = None):  
-    tsp = np.arange(t0, t1, dt)
-    Nsize = np.size(tsp)
-    X = np.empty((Nsize, np.size(x0)))
-    X[0] = x0
-
-    for i in range(1, Nsize):
-        k1 = ng(X[i-1],tsp[i-1])
-        k2 = ng(X[i-1] + dt/2*k1, tsp[i-1] + dt/2)
-        k3 = ng(X[i-1] + dt/2*k2, tsp[i-1] + dt/2)
-        k4 = ng(X[i-1] + dt*k3, tsp[i-1] + dt)
-        X[i] = X[i-1] + dt/6*(k1 + 2*k2 + 2*k3 + k4)
-    return X"""
-
 # Function that holds the initial conditions and parameters of the ODE
 
 def ODEs((x_vec), (t)):
@@ -58,32 +42,32 @@ def ODEs((x_vec), (t)):
 
 def ODE_generate(data_length):
     return generate(data_length, ODEs, \
-            	    np.array([0,0]), xrange(data_length))
+            	    np.array([0,2]), xrange(data_length))
 
 # Function that creates the phase plot for the system
 
-"""def do_pplot():
+def do_pplot():
     pylab.figure()
     data = ODE_generate(10000)   # how long the function is solved for
     pylab.plot(data[0,:], data[1,:])
-    pylab.title("Phase Portrait - ODE")
+    pylab.title("Phase Portrait - ODE (SHM)")
     pylab.xlabel("X Dynamical Variable")
     pylab.ylabel("Y Dynamical Variable")
     pylab.show()
 
-print do_pplot()"""
+print do_pplot()
 
 # Function that creates the time plot for the system
 
 def do_tplot():
     pylab.figure()
-    data = ODE_generate(100)   # how long the function is solved for
+    data = ODE_generate(318)   # how long the function is solved for
     pylab.plot(data[0])
-    pylab.title("ODE Solution")
+    pylab.title("ODE Solution over time (SHM)")
     pylab.xlabel("Time")
     pylab.ylabel("Numerically approximated solution")
-    pylab.xlim(0,100)
-    pylab.ylim(-1,1)
+    pylab.xlim(0,318)
+    pylab.ylim(-2,2)
     pylab.show()
 
 print do_tplot()
