@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# A General Ordinary Differential Equation (ODE) Solver
+# A General Ordinary Differential Equation (ODE) Solver, applied to SHM
 
 from __future__ import division
 from scipy import *
@@ -49,14 +49,16 @@ def rk4(odes, state, parameters, dt=0.01):
 
 # Function that holds the initial conditions and parameters of the ODE
 
-def ODEs((x), (omega)):
-    return np.array([sin(x)])
+def ODEs((x_vec), (t)):
+    omega_squared = 4;
+    x,y = x_vec;
+    return np.array([y, -omega_squared*x])
 
 # Function that calls the generate function that generates data from the system
 
 def ODE_generate(data_length):
     return generate(data_length, ODEs, \
-            	    np.array([0]), np.array([60]))
+            	    np.array([0,0]), xrange(data_length))
 
 # Function that creates the phase plot for the system
 
@@ -75,13 +77,13 @@ print do_pplot()"""
 
 def do_tplot():
     pylab.figure()
-    data = ODE_generate(10000)   # how long the function is solved for
+    data = ODE_generate(100)   # how long the function is solved for
     pylab.plot(data[0])
     pylab.title("ODE Solution")
     pylab.xlabel("Time")
     pylab.ylabel("Numerically approximated solution")
-    pylab.xlim(0,10000)
+    pylab.xlim(0,100)
     pylab.ylim(-1,1)
     pylab.show()
-    
-print do_tplot()    
+
+print do_tplot()
