@@ -110,6 +110,7 @@ dt = 1./30 # 30 fps
 #------------------------------------------------------------
 # set up figure and animation
 fig = plt.figure()
+plt.title("Double Pendulum")
 ax = fig.add_subplot(111, aspect='equal', autoscale_on=False,
                      xlim=(-2, 2), ylim=(-2, 2))
 ax.grid()
