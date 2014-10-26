@@ -1,3 +1,11 @@
+#  This code is for simulating the ballistics of a projectile fired vertically
+# into the air given the coupled nonlinear system of differential equations 
+# derived from Newton's second law.
+
+# Expressed as:
+# m*v_xdot = - c*v_x*sqrt{v_x^2 + v_y^2}
+# m*v_ydot = m*g - c*v_y*sqrt{v_x^2 + v_y^2}
+
 from __future__ import division
 from scipy import *
 import numpy as np
