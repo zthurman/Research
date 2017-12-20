@@ -17,7 +17,7 @@ class NeuralNetwork(object):
         self.lr = learning_rate
         
         # Lambda for sigmoid calculation, activation function
-        self.activation_function = lambda x: 1 / (1 + np.exp(-x))  # Replace 0 with your sigmoid calculation.
+        self.activation_function = lambda x: 1.0 / (1 + np.exp(-x))  # Replace 0 with your sigmoid calculation.
 
     def train(self, features, targets):
         ''' Train the network on batch of features and targets. 
@@ -79,28 +79,28 @@ class NeuralNetwork(object):
 
         # TODO: Output error - Replace this value with your calculations.
         error = (y - final_outputs)  # Output layer error is the difference between desired target and actual output.
-        print("Error:" + str(error.shape))
+        # print("Error:" + str(error.shape))
 
         # TODO: Backpropagated error terms - Replace these values with your calculations.
-        output_error_term = error * final_outputs * (1 - final_outputs)
-        print("Output Error Term:" + str(output_error_term.shape))
+        output_error_term = error * 1.0
+        # print("Output Error Term:" + str(output_error_term.shape))
 
         # TODO: Calculate the hidden layer's contribution to the error
         hidden_error = np.dot(output_error_term, self.weights_hidden_to_output.T)
-        print("Hidden Error:" + str(hidden_error.shape))
+        # print("Hidden Error:" + str(hidden_error.shape))
         # OR to be silly and use a transpose for shits and giggles
         # hidden_error = np.dot(self.weights_hidden_to_output, output_error_term)
 
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)
-        print("Hidden Error Term:" + str(hidden_error_term.shape))
+        # print("Hidden Error Term:" + str(hidden_error_term.shape))
 
         # Weight step (input to hidden)
         delta_weights_i_h += hidden_error_term * X[:, None]
-        print("Delta Weights Input Hidden:" + str(delta_weights_i_h.shape))
+        # print("Delta Weights Input Hidden:" + str(delta_weights_i_h.shape))
         # Weight step (hidden to output)
         delta_weights_h_o += output_error_term * hidden_outputs[:, None]
-        print("Delta Weights Hidden Output:" + str(delta_weights_h_o.shape))
-        #return delta_weights_i_h, delta_weights_h_o
+        # print("Delta Weights Hidden Output:" + str(delta_weights_h_o.shape))
+        return delta_weights_i_h, delta_weights_h_o
 
 
     def update_weights(self, delta_weights_i_h, delta_weights_h_o, n_records):
@@ -114,9 +114,9 @@ class NeuralNetwork(object):
 
         '''
         # Update hidden-to-output weights with gradient descent step
-        self.weights_hidden_to_output += learning_rate * delta_weights_h_o/n_records
+        self.weights_hidden_to_output += self.lr / n_records*delta_weights_h_o
         # Update input-to-hidden weights with gradient descent step
-        self.weights_input_to_hidden += learning_rate * delta_weights_i_h/n_records
+        self.weights_input_to_hidden += self.lr / n_records*delta_weights_i_h
 
     def run(self, features):
         ''' Run a forward pass through the network with input features 
@@ -145,27 +145,3 @@ iterations = 100
 learning_rate = 0.01
 hidden_nodes = 2
 output_nodes = 1
-
-'''
-inputs = np.array([[0.5, -0.2, 0.1]])
-targets = np.array([[0.4]])
-test_w_i_h = np.array([[0.1, -0.2],
-                       [0.4, 0.5],
-                       [-0.3, 0.2]])
-test_w_h_o = np.array([[0.3],
-                       [-0.1]])
-
-
-network = NeuralNetwork(3, 2, 1, 0.5)
-network.weights_input_to_hidden = test_w_i_h.copy()
-network.weights_hidden_to_output = test_w_h_o.copy()
-
-network.train(inputs, targets)
-self.assertTrue(np.allclose(network.weights_hidden_to_output,
-                            np.array([[0.37275328],
-                                      [-0.03172939]])))
-self.assertTrue(np.allclose(network.weights_input_to_hidden,
-                            np.array([[0.10562014, -0.20185996],
-                                      [0.39775194, 0.50074398],
-                                      [-0.29887597, 0.19962801]])))
-'''
