@@ -1,4 +1,4 @@
-package com.company;
+package hello.world;
 
 class HelloWorld {
 
